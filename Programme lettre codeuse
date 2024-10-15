@@ -1,0 +1,36 @@
+# Création de la fonction et tests jussqu'à obtenir une valeur correcte
+def mot_codeur(): # Définir la fonction
+    global lettre_codeuse # Rend la variable globale comme ca on peut l'utiliser après pour lier les programme
+    mot = str(input("Entrez le mot décodeur: ")) # Demander le mot (on peut le faire en paramèt de la fctn si besoin)
+    if mot.isupper() is False: # Si le mot n'est pas en majuscule
+        while mot.isupper() is False: # Tant que le mot n'est pas en majuscule (tant que le mot est incorrect)
+            print("Veuillez entrer une chaîne de caractères qui constitue le mot décodeur.") # Annoncer l'erreur
+            mot = str(input("Entrez le mot décodeur correctement: ")) # Demander un mot correct
+
+
+# Définition de la liste des lettres répétée pour le bloc suivant
+    lettres_repetées = []  
+
+
+# Chercher les lettres en doublon (double boucle for)
+    for y in range(len(mot)): # Parcourir chaque crctr du mot 1 par 1
+        total = 1 # Pour chaque lettre détectée, on ajoute 1 au total
+        for z in range(y + 1, len(mot)): # On parcoure chaque lettre à partir de chaque letre détectée (y+1) et on rajoute 1 si on revoit la lettre (double ou plus)
+            if mot[y] == mot[z]:  # Si on voit bien la même lettre 2 ou plusieurs fois
+                total = total + 1  # Rajouter 1 au total
+        if total > 1 and mot[y] not in lettres_repetées: # Si la lettre n'est pas déja dans la liste (éviter les doublons)
+            lettres_repetées.append(mot[y]) #On "append" la lettre dans la lisete
+
+
+#Ecrire les résultats
+    if len(lettres_repetées) == 1: # Si une seule lettre est bien présente plusieurs fois
+        lettre_codeuse = lettres_repetées[0] # Afficher le caractère 0 (le premir) de la liste si on en a besoin plus tard, c'est la lettre codeuse ou décodeuse
+        print(lettre_codeuse, "est la lettre codeuse du mot",mot) # Afficher
+    elif len(lettres_repetées) > 1: # Si il y a plus d'une lettre répétée
+        print("Le mot décodeur contient plusieurs lettres répétées.") # Afficher
+    else: # Sinon (seul autre scénario possible: si aucune lettre répétée)
+        print("Le mot décodeur ne comprend aucune lettre répétée.") # Afficher
+
+
+mot_codeur()
+# Ajouter description pour la fonction et tests si nécessaire pour vérif que ca marche bien
