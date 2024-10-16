@@ -1,19 +1,25 @@
-
-
 def codage(caractere, decalage):
-    caractere= ord(caractere)
-    if caractere>64 and caractere<91:
-        caractere_code = chr(caractere+decalage)
-        # *Attention ! Test et modification
-        # pour les valeurs de caratere_code supérieures à 91
-    return caractere_code
+    caractere = ord(caractere) 
+    if 65 <= caractere <= 90:
+        caractere_code = caractere + decalage
+        if caractere_code > 90:
+            caractere_code -= 26
+        return chr(caractere_code)
+    else:
+        return caractere
 
-question = input("Voulez-vous coder un message ? (o/n)")
+question = input("Voulez-vous coder un message ? (o/n) : ")
+
 if question == "o":
-    caractereUtilisateur = input("Rentrez le message à coder :")
-    print (codage(caractereUtilisateur, 3))
+    message = input("Rentrez le message à coder : ")
+    decalage = 3
+    message_code = ""
+
+    for lettre in message:
+        message_code += codage(lettre, decalage) 
+
+    print("Message codé : ", message_code)
 elif question == "n":
     print("A bientôt")
 else:
-    print("rentrez 'o' ou 'n'")
-
+    print("Veuillez entrer 'o' ou 'n'")
