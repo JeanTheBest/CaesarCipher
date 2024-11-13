@@ -1,0 +1,11 @@
+def cesar_déchiffrement(texte, decalage):
+
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    texte_chiffre = ""
+    for caractere in texte:
+        if caractere.isalpha():
+            indice = (alphabet.index(caractere) - decalage - 1) % 26
+            texte_chiffre += alphabet[indice]
+        else:
+            texte_chiffre += caractere
+    return texte_chiffre
