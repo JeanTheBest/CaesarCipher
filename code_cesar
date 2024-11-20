@@ -1,0 +1,71 @@
+# Fonction pour détecter la lettre répétée dans un mot
+def mot_codeur():
+    global lettre_codeuse
+    mot = input("Entrez le mot décodeur (en majuscules) : ")
+
+    # Vérification que le mot est en majuscules
+    while not mot.isupper():
+        print("Veuillez entrer une chaîne de caractères en majuscules.")
+        mot = input("Entrez le mot décodeur correctement : ")
+
+    # Détection des lettres répétées
+    lettres_repetées = []
+    for y in range(len(mot)):
+        total = 1
+        for z in range(y + 1, len(mot)):
+            if mot[y] == mot[z]:
+                total += 1
+        if total > 1 and mot[y] not in lettres_repetées:
+            lettres_repetées.append(mot[y])
+
+    # Résultat
+    if len(lettres_repetées) == 1:
+        lettre_codeuse = lettres_repetées[0]
+        print(lettre_codeuse, "est la lettre codeuse du mot", mot)
+    elif len(lettres_repetées) > 1:
+        print("Le mot décodeur contient plusieurs lettres répétées :", lettres_repetées)
+    else:
+        print("Le mot décodeur ne comprend aucune lettre répétée.")
+
+
+# Fonction de chiffrement de César
+def codage(caractere, decalage):
+    caractere = ord(caractere)
+    if 65 <= caractere <= 90:  # Majuscules (A-Z)
+        caractere_code = (caractere - 65 + decalage) % 26 + 65
+    elif 97 <= caractere <= 122:  # Minuscules (a-z)
+        caractere_code = (caractere - 97 + decalage) % 26 + 97
+    else:  # Autres caractères
+        return chr(caractere)
+    return chr(caractere_code)
+
+
+# Fonction de déchiffrement de César
+def cesar_déchiffrement(texte, decalage):
+    texte_dechiffre = ""
+    for caractere in texte:
+        if caractere.isalpha():
+            decalage_inverse = -decalage
+            texte_dechiffre += codage(caractere, decalage_inverse)
+        else:
+            texte_dechiffre += caractere
+    return texte_dechiffre
+
+
+# Code principal
+def main():
+    mot_codeur()  # Utilisation de la fonction pour obtenir une lettre répétée (si besoin)
+
+    action = input("Voulez-vous coder ou décoder un message ? (coder/decoder) : ").lower()
+    if action == "coder":
+        message = input("Entrez le message à coder : ")
+        decalage = int(input("Entrez le décalage (entier) : "))
+        message_code = "".join(codage(lettre, decalage) for lettre in message)
+        print("Message codé :", message_code)
+    elif action == "decoder":
+        message = input("Entrez le message à décoder : ")
+        decalage = int(input("Entrez le décalage (entier utilisé pour coder) : "))
+        message_dechiffre = cesar_déchiffrement(message, decalage)
+        print("Message décodé :", message_dechiffre)
+    else:
+        print("Option invalide, programme terminé.")
